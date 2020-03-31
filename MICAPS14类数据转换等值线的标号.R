@@ -1,20 +1,20 @@
-#MICAPS 14ÀàÊý¾Ý£¬¿ÕÆøÎÛÈ¾ÆøÏóÌõ¼þµÈÖµÏßÍ¼
-#°Ñ±êºÅ061-066Ìæ»»³ÉIAQI=0¡¢50¡¢100¡¢150¡¢200¡¢300£¬Áù¸öµÈ¼¶ 
+#MICAPS 14ç±»æ•°æ®ï¼Œç©ºæ°”æ±¡æŸ“æ°”è±¡æ¡ä»¶ç­‰å€¼çº¿å›¾
+#æŠŠæ ‡å·061-066æ›¿æ¢æˆIAQI=0ã€50ã€100ã€150ã€200ã€300ï¼Œå…­ä¸ªç­‰çº§ 
 #by R
-#Author£º Yang Nan
+#Authorï¼š Yang Nan
 #2020-03-31
 
 
-#(1)¶ÁÈë¿ÕÎÛÎÄ¼þ²¢½øÐÐµÈÖµÏßÌæ»»--------------
+#(1)è¯»å…¥ç©ºæ±¡æ–‡ä»¶å¹¶è¿›è¡Œç­‰å€¼çº¿æ›¿æ¢--------------
 getwd()
-setwd("E:/¿ÆÑ§ÂÛÎÄ/2019Winter»ùÓÚÀúÊ·Ô¤±¨ÆÀ·ÖÖ÷¿Í¹Û¼¯³É»·¾³ÆøÏóÔ¤±¨·½·¨/0325 ¿ÕÎÛÔ¤±¨ÎÄ¼þ/")
+setwd("E:/XXX/")#ä½ è‡ªå·±çš„æ•°æ®ç›®å½•
 
 #read  data info
 data_old = readLines("kw20032508.072")
 
 data_new<-data_old
 
-#°Ñ061-066Ìæ»»³É0¡¢50¡¢100¡¢150¡¢200¡¢300
+#æŠŠ061-066æ›¿æ¢æˆ0ã€50ã€100ã€150ã€200ã€300
 
 old_signal_name<-c("061","062","063","064","065","066")
 new_signal_name<-c("000","050","100","150","200","300")
@@ -36,7 +36,7 @@ char_signal_old
 length(char_signal_old)
 
 if (length(char_signal_old)>0){
-  #¶ÔµÈÖµÏßµÄ±êºÅ½øÐÐÌæ»»
+  #å¯¹ç­‰å€¼çº¿çš„æ ‡å·è¿›è¡Œæ›¿æ¢
   char_signal_new<-gsub(old_signal_name[i],new_signal_name[i],char_signal_old)
   char_signal_new
   
@@ -61,8 +61,8 @@ char_signal_new
 }
 
 
-#£¨2£©½«½á¹û´æ³ö---------------
-#Ã»ÓÐÐÐÐÅÏ¢£¬Ã»ÓÐÁÐÐÅÏ¢£¬Ã»ÓÐË«ÒýºÅ£¬
-#ºÍMICAPS 14ÀàÊý¾Ý³õÊ¼ÎÄ¼þÒ»Ñù¡£
-write.table(data_new,"kw20032508-R¸Ä.072",col.names =FALSE,row.names =FALSE,quote=F)
+#ï¼ˆ2ï¼‰å°†ç»“æžœå­˜å‡º---------------
+#æ²¡æœ‰è¡Œä¿¡æ¯ï¼Œæ²¡æœ‰åˆ—ä¿¡æ¯ï¼Œæ²¡æœ‰åŒå¼•å·ï¼Œ
+#å’ŒMICAPS 14ç±»æ•°æ®åˆå§‹æ–‡ä»¶ä¸€æ ·ã€‚
+write.table(data_new,"kw20032508-Ræ”¹.072",col.names =FALSE,row.names =FALSE,quote=F)
 
