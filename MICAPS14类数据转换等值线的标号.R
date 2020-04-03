@@ -1,26 +1,33 @@
-#MICAPS 14ç±»æ•°æ®ï¼Œç©ºæ°”æ±¡æŸ“æ°”è±¡æ¡ä»¶ç­‰å€¼çº¿å›¾
-#æŠŠæ ‡å·061-066æ›¿æ¢æˆIAQI=0ã€50ã€100ã€150ã€200ã€300ï¼Œå…­ä¸ªç­‰çº§ 
+#MICAPS 14ÀàÊý¾Ý£¬¿ÕÆøÎÛÈ¾ÆøÏóÌõ¼þµÈÖµÏßÍ¼
+#°Ñ±êºÅ061-066Ìæ»»³ÉIAQI=0¡¢50¡¢100¡¢150¡¢200¡¢300£¬Áù¸öµÈ¼¶ 
 #by R
-#Authorï¼š Yang Nan
+#Author£º Yang Nan
 #2020-03-31
+#´ýÔö¼ÓµÄ¿ª·¢¹¦ÄÜ£º-------------
+#£¨1£©¶¨Ê±ËÑË÷×ª»¯´¦Àí
+#£¨2£©Ä£¿é»¯
+#£¨3£©×Ô¶¯ÅÐ¶Ï.024¡¢.048¡¢0.72²¢´¦Àí´æ´¢³ö¶ÔÓ¦ÎÄ¼þÃû
 
-
-#(1)è¯»å…¥ç©ºæ±¡æ–‡ä»¶å¹¶è¿›è¡Œç­‰å€¼çº¿æ›¿æ¢--------------
+#(1)¶ÁÈë¿ÕÎÛÎÄ¼þ²¢½øÐÐµÈÖµÏßÌæ»»--------------
 getwd()
-setwd("E:/XXX/")#ä½ è‡ªå·±çš„æ•°æ®ç›®å½•
+setwd("E:/XXXX/")
 
 #read  data info
-data_old = readLines("kw20032508.072")
+data_old = readLines("kw20032508.024")
 
 data_new<-data_old
 
-#æŠŠ061-066æ›¿æ¢æˆ0ã€50ã€100ã€150ã€200ã€300
+#°Ñ061-066Ìæ»»³É0¡¢50¡¢100¡¢150¡¢200¡¢300
 
 old_signal_name<-c("061","062","063","064","065","066")
 new_signal_name<-c("000","050","100","150","200","300")
 
+old_signal_sites<-c(" 061"," 062"," 063"," 064"," 065"," 066")
+new_signal_sites<-c(" 000"," 050"," 100"," 150"," 200"," 300")
+
 for (i in 1:6) {
 
+  
 posi_signal_old<-grep(old_signal_name[i],data_old)
 
 posi_signal_old
@@ -29,21 +36,43 @@ char_signal_old<-data_old[posi_signal_old]
         
 char_signal_old
 
-char_signal_old<-char_signal_old[nchar(char_signal_old)<6]
+nchar(char_signal_old)
 
-char_signal_old
+#°ÑÈ¦µÈÖµÏß»»µô
+char_signal_old_CONTOURS<-char_signal_old[nchar(char_signal_old)<6]
 
-length(char_signal_old)
+char_signal_old_CONTOURS
 
-if (length(char_signal_old)>0){
-  #å¯¹ç­‰å€¼çº¿çš„æ ‡å·è¿›è¡Œæ›¿æ¢
-  char_signal_new<-gsub(old_signal_name[i],new_signal_name[i],char_signal_old)
-  char_signal_new
+length(char_signal_old_CONTOURS)
+
+if (length(char_signal_old_CONTOURS)>0){
+  #¶ÔµÈÖµÏßµÄ±êºÅ½øÐÐÌæ»»
+  char_signal_new_CONTOURS<-gsub(old_signal_name[i],new_signal_name[i],char_signal_old_CONTOURS)
+  char_signal_new_CONTOURS
   
-  for (n in 1:length(char_signal_new)) {
-    data_new[data_new==char_signal_old[n]]<-char_signal_new[n]
+  for (n in 1:length(char_signal_new_CONTOURS)) {
+    data_new[data_new==char_signal_old_CONTOURS[n]]<-char_signal_new_CONTOURS[n]
   }
 }
+
+#°ÑÕ¾µã»»µô
+char_signal_old_sites<-char_signal_old[nchar(char_signal_old)<10]
+
+char_signal_old_sites
+
+length(char_signal_old_sites)
+
+if (length(char_signal_old_sites)>0){
+  #¶ÔµÈÖµÏßµÄ±êºÅ½øÐÐÌæ»»
+  char_signal_new_sites<-gsub(old_signal_sites[i],new_signal_sites[i],char_signal_old_sites)
+  char_signal_new_sites
+  
+  for (n in 1:length(char_signal_new_sites)) {
+    data_new[data_new==char_signal_old_sites[n]]<-char_signal_new_sites[n]
+  }
+}
+
+
 
 
 posi_signal_new<-grep(new_signal_name[i],data_new)
@@ -61,8 +90,8 @@ char_signal_new
 }
 
 
-#ï¼ˆ2ï¼‰å°†ç»“æžœå­˜å‡º---------------
-#æ²¡æœ‰è¡Œä¿¡æ¯ï¼Œæ²¡æœ‰åˆ—ä¿¡æ¯ï¼Œæ²¡æœ‰åŒå¼•å·ï¼Œ
-#å’ŒMICAPS 14ç±»æ•°æ®åˆå§‹æ–‡ä»¶ä¸€æ ·ã€‚
-write.table(data_new,"kw20032508-Ræ”¹.072",col.names =FALSE,row.names =FALSE,quote=F)
+#£¨2£©½«½á¹û´æ³ö---------------
+#Ã»ÓÐÐÐÐÅÏ¢£¬Ã»ÓÐÁÐÐÅÏ¢£¬Ã»ÓÐË«ÒýºÅ£¬
+#ºÍMICAPS 14ÀàÊý¾Ý³õÊ¼ÎÄ¼þÒ»Ñù¡£
+write.table(data_new,"kw20032508-R¸Ä.024",col.names =FALSE,row.names =FALSE,quote=F)
 
