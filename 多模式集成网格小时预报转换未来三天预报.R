@@ -1,16 +1,16 @@
-#¶àÄ£Ê½¼¯³ÉÍø¸ñÐ¡Ê±Ô¤±¨³¡NC£¬
-#¼ÆËã¶ÔÓ¦24h¡¢48h¡¢72hµÄAQI¡¢PM10¡¢PM2.5¡¢O3 
+#å¤šæ¨¡å¼é›†æˆç½‘æ ¼å°æ—¶é¢„æŠ¥åœºNCï¼Œ
+#è®¡ç®—å¯¹åº”24hã€48hã€72hçš„AQIã€PM10ã€PM2.5ã€O3 
 #by R
-#Author£º Yang Nan
+#Authorï¼š Yang Nan
 #2020-04-13
 
-#Î´Íê³É²¿·Ö
-#(1)AQIÓ¦¸ÃËãIAQI£¬È»ºóÇó×î´óÖµ
+#æœªå®Œæˆéƒ¨åˆ†
+#(1)AQIåº”è¯¥ç®—IAQIï¼Œç„¶åŽæ±‚æœ€å¤§å€¼
 
 getwd()
-setwd("E:/¿ÆÑ§ÂÛÎÄ/2019Winter»ùÓÚÀúÊ·Ô¤±¨ÆÀ·ÖÖ÷¿Í¹Û¼¯³É»·¾³ÆøÏóÔ¤±¨·½·¨/0409 Ö÷¿Í¹ÛÈÚºÏ¸öÀýÑÐ¾¿/")
+setwd("E:/XX/")
 
-#(1)¶ÁÈ¡NCÎÄ¼þÐ¡Ê±Êý¾ÝÐÅÏ¢---------
+#(1)è¯»å–NCæ–‡ä»¶å°æ—¶æ•°æ®ä¿¡æ¯---------
 library(ncdf4) 
 nc <- nc_open('AQI_Grid_2020040708.nc') 
 
@@ -26,8 +26,8 @@ latidue<-ncvar_get( nc = nc, varid = 'lat')
 
 nc_close( nc )
 
-#·Ö±ðÈ¡³öÎ´À´24h¡¢48h¡¢72hµÄÐ¡Ê±Êý¾Ý¼ÆËã------------
-#1. PM2.5Îª¶ÔÓ¦Æ½¾ù---------------------
+#åˆ†åˆ«å–å‡ºæœªæ¥24hã€48hã€72hçš„å°æ—¶æ•°æ®è®¡ç®—------------
+#1. PM2.5ä¸ºå¯¹åº”å¹³å‡---------------------
 PM25_24h<-PM25[,,1:24]
 PM25_48h<-PM25[,,25:48]
 PM25_72h<-PM25[,,49:72]
@@ -44,7 +44,7 @@ PM25_24_48_72[,,1]<-PM25_24h_mean
 PM25_24_48_72[,,2]<-PM25_48h_mean
 PM25_24_48_72[,,3]<-PM25_72h_mean
 
-#2. PM10Îª¶ÔÓ¦Æ½¾ù---------------------
+#2. PM10ä¸ºå¯¹åº”å¹³å‡---------------------
 PM10_24h<-PM10[,,1:24]
 PM10_48h<-PM10[,,25:48]
 PM10_72h<-PM10[,,49:72]
@@ -61,7 +61,7 @@ PM10_24_48_72[,,1]<-PM10_24h_mean
 PM10_24_48_72[,,2]<-PM10_48h_mean
 PM10_24_48_72[,,3]<-PM10_72h_mean
 
-#3. O3ÎªMDA8£¬¼´8Ð¡Ê±»¬¶¯Æ½¾ù×î´óÖµ---------------------
+#3. O3ä¸ºMDA8ï¼Œå³8å°æ—¶æ»‘åŠ¨å¹³å‡æœ€å¤§å€¼---------------------
 O3_24h<-O3[,,1:24]
 O3_48h<-O3[,,25:48]
 O3_72h<-O3[,,49:72]
@@ -69,7 +69,7 @@ O3_72h<-O3[,,49:72]
 #x <- c(1:24)
 #filter(x,rep(1/8,8))
 
-#¶¨Òå»¬¶¯Æ½¾ùº¯Êý
+#å®šä¹‰æ»‘åŠ¨å¹³å‡å‡½æ•°
 mav <- function(x,n=8){stats::filter(x,rep(1/n,n), sides=1)}
 
 O3_24h_mav<-apply(O3_24h, 1:2, mav)
@@ -210,7 +210,7 @@ PM10_IAQI=ifelse(
   )
 )
 
-#ÇóAQI_24_48_72--------------------
+#æ±‚AQI_24_48_72--------------------
 AQI_24_48_72<-AQI[,,1:3]
 for (i in 1:281) {
   for (j in 1:161) {
@@ -233,7 +233,7 @@ max(O3_IAQI)
 
 
 
-#(2)½«¼ÆËãÍêµÄ½á¹ûÐ´ÈëÐÂµÄNCÎÄ¼þ-------------------
+#(2)å°†è®¡ç®—å®Œçš„ç»“æžœå†™å…¥æ–°çš„NCæ–‡ä»¶-------------------
 # Define some straightforward dimensions
 lon <- ncdim_def( "lon", "degrees_east", vals=longitude)
 lat <- ncdim_def( "lat", "degrees_north", vals=latidue)
@@ -246,10 +246,10 @@ aq_fcst_PM10<- ncvar_def( name = 'PM10', units = 'ug/m3', dim = list(lon,lat,tim
 aq_fcst_O3<- ncvar_def( name = 'O3', units = 'ug/m3', dim = list(lon,lat,time), missval = mv, prec = 'float' )
 aq_fcst_AQI<- ncvar_def( name = 'AQI', units = '1', dim = list(lon,lat,time), missval = mv, prec = 'float' )
 
-#´´½¨ÎÄµµ
+#åˆ›å»ºæ–‡æ¡£
 ncnew <- nc_create( filename = 'AQI_GRID_2020040708_024-048-072.nc', vars =list(aq_fcst_PM25,aq_fcst_PM10,aq_fcst_O3,aq_fcst_AQI) )
 
-#Ð´ÈëÊý¾Ý
+#å†™å…¥æ•°æ®
 ncvar_put( nc = ncnew, varid = aq_fcst_PM25, vals = PM25_24_48_72 )
 ncvar_put( nc = ncnew, varid = aq_fcst_PM10, vals = PM10_24_48_72 )
 ncvar_put( nc = ncnew, varid = aq_fcst_O3, vals = O3_24_48_72 )
