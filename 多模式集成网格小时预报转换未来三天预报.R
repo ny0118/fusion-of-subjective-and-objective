@@ -5,7 +5,7 @@
 #2020-04-13
 
 #未完成部分
-#(1)AQI应该算IAQI，然后求最大值
+#(1)批量标准化处理。PM2.5、PM10、O3、AQI的024、048、072
 
 getwd()
 setwd("E:/XX/")
@@ -253,7 +253,7 @@ ncnew <- nc_create( filename = 'AQI_GRID_2020040708_024-048-072.nc', vars =list(
 ncvar_put( nc = ncnew, varid = aq_fcst_PM25, vals = PM25_24_48_72 )
 ncvar_put( nc = ncnew, varid = aq_fcst_PM10, vals = PM10_24_48_72 )
 ncvar_put( nc = ncnew, varid = aq_fcst_O3, vals = O3_24_48_72 )
-ncvar_put( nc = ncnew, varid = aq_fcst_AQI, vals = O3_24_48_72 )
+ncvar_put( nc = ncnew, varid = aq_fcst_AQI, vals = AQI_24_48_72 )
 
 
 
